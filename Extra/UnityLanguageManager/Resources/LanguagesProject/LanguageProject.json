@@ -1,0 +1,13 @@
+{
+    "projectName": "LanguagesProject",
+    "mainLanguage": "en",
+    "languages": [
+        "en",
+        "es",
+        "de",
+        "fr",
+        "it",
+        "ja",
+        "pt-BR"
+    ]
+}
