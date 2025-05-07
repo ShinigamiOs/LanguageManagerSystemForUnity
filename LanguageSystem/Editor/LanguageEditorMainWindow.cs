@@ -60,6 +60,7 @@ namespace LanguageSystem.Editor
             window.project = data;
             window.projectFolderPath = folderPath;
             window.LoadLanguageData();
+            Debug.Log("Folder path in Open: "+folderPath);
         }
 
         /// <summary>
@@ -69,7 +70,7 @@ namespace LanguageSystem.Editor
         {
             languageData.Clear();
             string langFolder = Path.Combine(projectFolderPath, "Languages");
-
+            
             // Load each language file
             foreach (var lang in project.languages)
             {
@@ -96,11 +97,18 @@ namespace LanguageSystem.Editor
         private void SaveLanguageData()
         {
             string langFolder = Path.Combine(projectFolderPath, "Languages");
-
+            
+             
             foreach (var lang in project.languages)
             {
                 var file = new LanguageFile(languageData[lang]);
-                string json = JsonUtility.ToJson(file, true); // Pretty-print JSON
+
+                if (file.entries == null || file.entries.Count == 0)
+                {
+                    Debug.LogWarning($"No hay entradas para el idioma: {lang}");
+                    continue;
+                }
+                string json = JsonUtility.ToJson(file, true); 
                 File.WriteAllText(Path.Combine(langFolder, lang + ".json"), json);
             }
 
