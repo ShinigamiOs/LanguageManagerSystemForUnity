@@ -34,10 +34,16 @@ namespace LanguageSystem.Runtime{
         public List<LanguageEntry> entries;
         public LanguageFile(){ }
         public LanguageFile(Dictionary<string, string> data){
-                foreach (var pair in data){
-                    entries.Add(new LanguageEntry { key = pair.Key, value = pair.Value });
-                }
+
+             entries = new List<LanguageEntry>(); // Inicializa la lista siempre
+
+            if (data == null){
+                return;
             }
+            foreach (var pair in data){
+                entries.Add(new LanguageEntry { key = pair.Key, value = pair.Value });
+            }
+        }
         public Dictionary<string, string> ToDictionary(){
             Dictionary<string, string> dict = new();
             foreach (var entry in entries){
